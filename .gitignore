@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+*.egg-info/
+build/
+dist/
+.venv/
+.pytest_cache/
+# Your copy of the owners' definitions and anything derived from vendor data stay local.
+gics_definitions.json
+*.xlsx
+*.joblib

@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gics-classifier"
+version = "0.1.0"
+description = "Place companies in the GICS structure from Yahoo industries, SIC codes and descriptions: a rule crosswalk and a hybrid text model"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+keywords = ["gics", "sector", "industry", "classification", "finance", "tf-idf"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Topic :: Office/Business :: Financial :: Investment",
+]
+dependencies = ["numpy>=1.24", "scipy>=1.10", "scikit-learn>=1.3"]
+
+[project.optional-dependencies]
+workbook = ["openpyxl>=3.1"]
+dev = ["pytest>=7", "openpyxl>=3.1"]
+
+[project.scripts]
+gics-classify = "gics_classifier.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/simulationcoder/gics-classifier"
+
+[tool.setuptools.packages.find]
+include = ["gics_classifier*"]
+
+[tool.setuptools.package-data]
+gics_classifier = ["data/*.json"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
