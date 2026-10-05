@@ -107,6 +107,24 @@ duplicate key, because a duplicate silently replaces the earlier entry and its r
 
 All thresholds are CLI flags. A full retrain over 6,000 companies takes about a minute.
 
+## A full run, as data
+
+[`examples/us_common_stocks_2026-10-04.csv`](examples/us_common_stocks_2026-10-04.csv)
+is the output of both passes over every active US common stock on 4 October 2026:
+6,240 rows, one per ticker, with the four GICS levels (codes and names), the
+confidence, how the row was decided (`method`) and, for the 589 rows with no
+placement, why (`excluded_reason`). The inputs were company descriptions from a market
+data vendor, SEC SIC codes and Yahoo Finance industries; only the SIC code is reproduced
+here, the rest is not ours to redistribute. The placements are ours, not S&P's or
+MSCI's, and a few will be wrong: the `confidence` column says how much to trust each.
+
+| method | rows | meaning |
+|---|---|---|
+| `model+crosswalk` | 4,626 | the model agreed with the crosswalk; confidence is the higher of the two |
+| `yahoo+sic`, `yahoo`, `sic`, `keywords` | 1,019 | the crosswalk's placement stood; the model dissented or had no view strong enough to overrule |
+| `model` | 5 | the model overruled the crosswalk |
+| excluded | 589 | 332 shell companies, 118 notes / preferreds / funds filed as common stock, 139 with no usable evidence |
+
 ## What it cannot do
 
 - No meaning, only vocabulary: synonyms are strangers to TF-IDF, and marketing-language
